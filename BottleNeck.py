@@ -34,7 +34,8 @@ class BottleNeck(nn.Module):
             identity = self.identity_downsample(identity)
 
         # identity shortcut
-        x = self.relu(x + identity)
+        x = x + identity
+        x = self.relu(x)
 
         return x
 

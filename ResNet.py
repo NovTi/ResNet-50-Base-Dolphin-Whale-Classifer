@@ -1,9 +1,7 @@
-import torch
 import torch.nn as nn
 
 
-
-class ResNet(nn.Module):
+class ResNet50(nn.Module):
     def __init__(self, bottleneck, layers, image_channels, class_nums):
         super().__init__()
         # initialize the in_channels after the first max pool layer
@@ -41,7 +39,7 @@ class ResNet(nn.Module):
         x = self.conv5(x)
 
         x = self.avgpool(x)
-        x = x.reshape(x.shape[0], -1)  # what is this doing?
+        x = x.reshape(x.shape[0], -1)  # reshape the four-d tensor to 2-d matrix
         x = self.fc(x)
 
         return x
@@ -62,4 +60,4 @@ class ResNet(nn.Module):
         for i in range(block_nums - block_minus):
             layers.append(bottleneck(self.in_channels, out_channels))
 
-        return nn.Sequential(*layers)  # Why adding a *?????
+        return nn.Sequential(*layers)
